@@ -1,21 +1,21 @@
 <?php
 
 class GameBoard {
-    private const NUM_SQUARES_ON_BOARD = 9*9;
-    private const ROW_LENGTH = 9;
-    private const SQUARE_LENGTH = 3;
+    private const BOARD_DIM = 9;
+    private const SQUARE_DIM = 3;
+    private const NUM_SQUARES_PER_DIM = self::BOARD_DIM / self::SQUARE_DIM;
 
     private $board;
 
     public function __construct()
     {
-        $board = func_get_args();
+        $board = func_get_args(); // TODO make this a 2D array to simplify the math. 
 
-        if (count($board) !== self::NUM_SQUARES_ON_BOARD) {
+        if (count($board) != self::BOARD_DIM * self::BOARD_DIM) {
             throw new \InvalidArgumentException('invalid board size');
         }
 
-        // TODO check types of incoming values to ensure int
+        // TODO check types of incoming values to ensure int and in range
 
         $this->board = $board;
     }
@@ -79,20 +79,23 @@ class GameBoard {
 
     private function current_row($index)
     {
-        return array_slice($this->board, self::row_num($index) * self::ROW_LENGTH, self::ROW_LENGTH);
+        return array_slice($this->board, self::row_num($index) * self::BOARD_DIM, self::BOARD_DIM);
     }
 
     private static function row_num($index)
     {
-        return floor($index / self::ROW_LENGTH);
+        return floor($index / self::BOARD_DIM);
     }
 
     private function current_col_numbers($index)
     {
         $col = self::col_num($index);
 
+        $num_squares_on_board = pow(self::SQUARE_DIM
+, 4);
+
         $column_numbers = [];
-        for ($i = $col; $i < self::NUM_SQUARES_ON_BOARD; $i += self::ROW_LENGTH) {
+        for ($i = $col; $i < $num_squares_on_board; $i += self::BOARD_DIM) {
             $column_numbers[] = $this->board[$i];
         }
 
@@ -101,7 +104,7 @@ class GameBoard {
 
     private static function col_num($index)
     {
-        return $index % self::ROW_LENGTH;
+        return $index % self::BOARD_DIM;
     }
 
     private function current_square($index)
@@ -109,12 +112,15 @@ class GameBoard {
         $square_numbers = [];
 
         $sqr_i = self::first_index_in_square($index);
-        for ($row = 0; $row < self::SQUARE_LENGTH; ++$row) {
-            for ($col = 0; $col < self::SQUARE_LENGTH; ++$col) {
+        for ($row = 0; $row < self::SQUARE_DIM
+; ++$row) {
+            for ($col = 0; $col < self::SQUARE_DIM
+    ; ++$col) {
                 $square_numbers[] = $this->board[$sqr_i++];
             }
             // set $sqr_i to first index on the next line inside the square
-            $sqr_i = $sqr_i - self::SQUARE_LENGTH + self::ROW_LENGTH;
+            $sqr_i = $sqr_i - self::SQUARE_DIM
+     + self::BOARD_DIM;
         }
 
         return $square_numbers;
@@ -123,10 +129,12 @@ class GameBoard {
     private static function first_index_in_square($index)
     {
         // square number (based on row) * square length * row length + square number (based on col) * square length
-        $sqr_num_r = floor(self::row_num($index) / self::SQUARE_LENGTH);
-        $sqr_num_c = floor(self::col_num($index) / self::SQUARE_LENGTH);
+        $sqr_num_r = floor(self::row_num($index) / self::SQUARE_DIM);
+        $sqr_num_c = floor(self::col_num($index) / self::SQUARE_DIM);
 
-        return $sqr_num_r * self::SQUARE_LENGTH * self::ROW_LENGTH + $sqr_num_c * self::SQUARE_LENGTH;
+        return $sqr_num_r * self::SQUARE_DIM
+ * self::BOARD_DIM + $sqr_num_c * self::SQUARE_DIM
+;
     }
 
     public function is_solved()
