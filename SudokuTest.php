@@ -175,37 +175,4 @@ final class SudokuTest extends TestCase
           $solvedBoard
         );
     }
-
-    // public function testFirstIndexInSquare() : void
-    // {
-    //     $this->assertEquals(GameBoard::first_index_in_square(0), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(1), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(2), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(0+9), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(1+9), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(2+9), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(0+2*9), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(1+2*9), 0);
-    //     $this->assertEquals(GameBoard::first_index_in_square(2+2*9), 0);
-
-    //     $this->assertEquals(GameBoard::first_index_in_square(30), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(31), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(32), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(30+9), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(31+9), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(32+9), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(30+2*9), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(31+2*9), 30);
-    //     $this->assertEquals(GameBoard::first_index_in_square(32+2*9), 30);
-
-    //     $this->assertEquals(GameBoard::first_index_in_square(60), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(61), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(62), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(60+9), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(61+9), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(62+9), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(60+2*9), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(61+2*9), 60);
-    //     $this->assertEquals(GameBoard::first_index_in_square(62+2*9), 60);
-    // }
 }
